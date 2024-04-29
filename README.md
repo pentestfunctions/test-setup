@@ -1,24 +1,45 @@
-Run this if you struggle to see your screen while running the setup.
+# 🚀 Setup Guide for Debian VM on Windows Host
+
+This guide will help you configure a Debian 12 virtual machine on a Windows host, including adjustments for screen resolution, installation of necessary software, and system configuration.
+
+## 📋 Prerequisites
+- Hyper-V enabled on Windows
+- Debian 12 ISO
+- Internet connection for the VM
+
+## 🛠 Initial Setup
+
+### 🔧 Configure Screen Resolution
+Run this command if you struggle to see your screen while running the setup:
 
 ```bash
 xrandr | awk '/ connected/ { print $1 }' | xargs -I{} xrandr --output {} --mode 1920x1080
 ```
 
-New VM (not quick create)
-Select Generation 2
+### 🖥 Create New VM
+1. Choose "New VM" (not quick create)
+2. Select "Generation 2"
+3. Go to Settings:
+   - Disable Secure Boot
+   - Enable guest services in the Integration Services.
 
-Settings > Disable Secure Boot > Enable guest services in the Integration Services.
+### 📦 Install Debian 12
+Install Debian 12 as you prefer. Remember to set up both root/sudo and user accounts. During the final step of the installation:
+- Configure XFCE
+- Disable Gnome and Debian Desktop
+- Leave "Standard System Utilities" enabled
 
-Install Debian 12 how you please. Make sure you remember the root/sudo and user accounts you setup. Then during the final step of the installation ensure you configure XFCE and disable Gnome and Debian Desktop, you can leave Standard System Utilities enabled.
+## ⚙️ Configuration Steps
 
-Step 1 after first booting:
+### 🌟 Step 1: Post-Installation Setup
+After the first boot:
+```bash
+# Login with your user account (not root)
+su root  # Switch to root on that profile
+apt install git -y  # Install git
 ```
-Login with your user account (not root)
-su root (switch to root on that profile)
-apt install git -y (install git)
-```
 
-Step 2.
+### 📡 Step 2: Clone and Run Setup Script
 ```bash
 git clone https://github.com/pentestfunctions/test-setup.git
 cd test-setup
@@ -26,17 +47,19 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-Now you can reboot. 
+### 🔄 Reboot the System
+After running `setup.sh`, the system will reboot (you can turn it off at this point).
 
-After running the setup.sh file it will reboot (you can turn it off at this point) and in a administrator powershell on the windows host, run the following:
-
+### 🔌 Enable Enhanced Session Mode
+Run the following command in an administrator PowerShell on the Windows host (MAKE SURE YOU CHANGE DebianTest to your Hyper-V image name):
 ```bash
 Set-VM -VMName DebianTest -EnhancedSessionTransportType HvSocket
 ```
 
-Now when you boot it, on the login screen you will be prompted after a few seconds for enhanced session mode (RDP) you can adjust the resolution now if you would like.
+### 💻 Configure RDP and Final Setup
+When you boot the VM, on the login screen you will be prompted for enhanced session mode (RDP) after a few seconds. You can adjust the resolution now if you wish.
 
-Once logged to the Xorg session you can run
+Once logged into the Xorg session, run:
 ```bash
 wget https://github.com/pentestfunctions/test-setup/blob/main/configure.sh
 chmod +x configure.sh
