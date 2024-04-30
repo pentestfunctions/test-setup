@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # Installed required tools from default repositories
-sudo apt-get install dos2unix outguess pdfcrack smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat wireshark sqlmap ruby-dev neofetch openvpn sublist3r
+sudo apt-get install curl dos2unix outguess pdfcrack smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat wireshark sqlmap ruby-dev neofetch openvpn sublist3r -y
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 sudo gem install wpscan
 
 # Install Rust
 wget https://github.com/RustScan/RustScan/releases/download/2.2.2/rustscan_2.2.2_amd64.deb
-dpkg -i rustscan_2.2.2_amd64.deb
+sudo dpkg -i rustscan_2.2.2_amd64.deb
 
 # Install brave browser
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 sudo apt update
-sudo apt install brave-browser
+sudo apt install brave-browser -y
 sudo apt remove firefox-esr -y
 
 # Setting a new wallpaper
@@ -61,7 +61,6 @@ MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
 MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
 EOF
-
 
 # Setup John The Ripper
 sudo apt-get install libssl-dev -y
@@ -168,9 +167,9 @@ sudo ln -s /usr/share/john/truecrypt2john.py /usr/bin/truecrypt2john
 sudo ln -s /usr/share/john/vdi2john.pl /usr/bin/vdi2john
 sudo ln -s /usr/share/john/vmx2john.py /usr/bin/vmx2john
 sudo ln -s /usr/share/john/zed2john.py /usr/bin/zed2john
+sudo ln -s /bin/python3 /bin/python
 
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
-
 
 if [ ! -d "/usr/share/seclists" ]; then
     wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
@@ -180,7 +179,6 @@ if [ ! -d "/usr/share/seclists" ]; then
 else
     echo "Seclists is already installed"
 fi
-
 
 grep -qxF 'deb http://http.kali.org/kali kali-rolling main non-free contrib' /etc/apt/sources.list || echo 'deb http://http.kali.org/kali kali-rolling main non-free contrib' | sudo tee -a /etc/apt/sources.list > /dev/null
 wget -qO- https://archive.kali.org/archive-key.asc | sudo tee /etc/apt/trusted.gpg.d/archive-key.asc
@@ -207,7 +205,7 @@ fi
 
 sudo apt install enum4linux crackmapexec getallurls dirsearch exploitdb getsploit feroxbuster kerberoast payloadsallthethings pdf-parser peirates pipal pspy radare2 responder smtp-user-enum snmpcheck snmpenum subfinder -y
 
-apt install gpgv2 autoconf bison build-essential postgresql libaprutil1 libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev curl -y
+sudo apt install gpgv2 autoconf bison build-essential postgresql libaprutil1 libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev curl -y
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
 chmod 755 msfinstall
 ./msfinstall
