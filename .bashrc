@@ -185,6 +185,9 @@ escalation() {
     } | lolcat
 }
 
+
+sudo ln -s /usr/bin/python3 /usr/bin/python
+alias python='python3'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
