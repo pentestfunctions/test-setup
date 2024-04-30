@@ -131,10 +131,10 @@ process() {
 
 hacknexus() {
     if [ "$#" -ne 2 ] || [ "$1" != "-u" ]; then
-        echo "Usage: hacknexus <domain>"
-        return 1
+	echo "Usage: hacknexus -u <domain>"
+	return 1
     fi
-    dirsearch -u "$@"
+    dirsearch "$@"
 }
 
 escalation() {
@@ -186,7 +186,7 @@ escalation() {
 }
 
 
-sudo ln -s /usr/bin/python3 /usr/bin/python
+alias cls='clear'
 alias python='python3'
 alias ifconfig='/sbin/ifconfig'
 alias zip2john='/usr/sbin/zip2john'
