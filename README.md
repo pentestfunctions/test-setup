@@ -65,3 +65,8 @@ wget https://github.com/pentestfunctions/test-setup/blob/main/configure.sh
 chmod +x configure.sh
 ./configure.sh
 ```
+
+Then simply setup your .bashrc with this one
+```
+https://github.com/pentestfunctions/test-setup/blob/main/.bashrc
+```
