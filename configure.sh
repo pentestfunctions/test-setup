@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check if the script is running as root
+if [ "$(id -u)" -eq 0 ]; then
+  echo "This script should not be run as root. Please run without sudo."
+  exit 1
+fi
+
 # Installed required tools from default repositories
 sudo apt-get install curl dos2unix outguess pdfcrack smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat sqlmap ruby-dev neofetch openvpn sublist3r -y
 sudo DEBIAN_FRONTEND=noninteractive sudo apt-get -y install wireshark > /dev/null
@@ -67,7 +73,7 @@ EOF
 sudo apt-get install libssl-dev -y
 git clone https://gitlab.com/kalilinux/packages/john.git
 cd john/src
-./configure && make --without-openssl
+./configure && make
 sudo mkdir -p /usr/share/john/
 sudo cp -r ../run/* /usr/share/john/
 sudo chmod +x /usr/share/john/*
@@ -207,11 +213,11 @@ fi
 sudo apt install enum4linux crackmapexec getallurls dirsearch exploitdb getsploit feroxbuster kerberoast payloadsallthethings pdf-parser peirates pipal pspy radare2 responder smtp-user-enum snmpcheck snmpenum subfinder -y
 
 sudo apt install gpgv2 autoconf bison build-essential postgresql libaprutil1 libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev curl -y
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
-chmod 755 msfinstall
-./msfinstall
-rm msfinstall
+sudo curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > /tmp/msfinstall
+chmod 755 /tmp/msfinstall
+sudo /tmp/msfinstall
+sudo rm msfinstall
 
-wget https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder
-chmod +x hosting_folder
-sudo mv hosting_folder /bin/hostfolder
+sudo wget https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder > /tmp/hosting_folder
+chmod +x /tmp/hosting_folder
+sudo mv /tmp/hosting_folder /bin/hostfolder
