@@ -1,5 +1,5 @@
 # Installed required tools from default repositories
-sudo apt-get install zenity john nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat wireshark sqlmap ruby-dev neofetch openvpn sublist3r
+sudo apt-get install dos2unix steghide sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat wireshark sqlmap ruby-dev neofetch openvpn sublist3r
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 sudo gem install wpscan
 
