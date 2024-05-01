@@ -221,3 +221,7 @@ sudo rm msfinstall
 sudo wget https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder > /tmp/hosting_folder
 chmod +x /tmp/hosting_folder
 sudo mv /tmp/hosting_folder /bin/hostfolder
+
+cp ~/.bashrc ~/.bashrc.backup
+curl -o ~/.bashrc https://raw.githubusercontent.com/pentestfunctions/test-setup/main/.bashrc
+source ~/.bashrc
