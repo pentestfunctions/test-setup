@@ -6,6 +6,42 @@ if [ "$(id -u)" -eq 0 ]; then
   exit 1
 fi
 
+# Enable user extensions in GNOME
+gsettings set org.gnome.shell disable-user-extensions false
+
+# Uninstall any existing instance of Dash to Panel
+gnome-extensions uninstall dash-to-panel@jderose9.github.com
+
+# Install necessary packages
+sudo apt install gettext make -y
+
+# Clone the Dash to Panel repository
+wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v51.shell-extension.zip
+
+# Unzip the file and move it to the location
+wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v51.shell-extension.zip
+unzip dash-to-paneljderose9.github.com.v51.shell-extension.zip -d ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/
+
+# Restart GNOME Shell to apply changes
+sudo killall -HUP gnome-shell
+
+# Go back to the parent directory
+sleep 10 
+
+# Remove the cloned repository directory
+echo "GNOME has restarted, and now I'm running this command."
+
+# Enable the Dash to Panel extension
+gnome-extensions enable "dash-to-panel@jderose9.github.com"
+
+# Move Extension to the top
+dconf write /org/gnome/shell/extensions/dash-to-panel/panel-positions "'{\"0\":\"TOP\"}'"
+
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+wget -O ~/Pictures/background.jpg "https://pbs.twimg.com/media/EYUgEFkWsAE-Tkg?format=jpg&name=4096x4096"
+gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/Pictures/background.jpg"
+gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/Pictures/background.jpg"
+
 # Installed required tools from default repositories
 echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
 sudo apt-get install curl dos2unix outguess pdfcrack wireshark smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat sqlmap ruby-dev neofetch openvpn sublist3r -y
@@ -22,9 +58,6 @@ echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] http
 sudo apt update
 sudo apt install brave-browser -y
 sudo apt remove firefox-esr -y
-
-# Setting a new wallpaper
-wget -O ~/Pictures/background.jpg "https://pbs.twimg.com/media/EYUgEFkWsAE-Tkg?format=jpg&name=4096x4096"
 
 # Setup John The Ripper
 sudo apt-get install libssl-dev -y
@@ -167,14 +200,13 @@ else
     echo "Content already exists in $file"
 fi
 
+sudo apt upgrade -y
 sudo apt install enum4linux crackmapexec getallurls dirsearch exploitdb getsploit feroxbuster kerberoast payloadsallthethings pdf-parser peirates pipal pspy radare2 responder smtp-user-enum snmpcheck snmpenum subfinder -y
-
 sudo apt install gpgv2 autoconf bison build-essential postgresql libaprutil1 libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev curl -y
 sudo curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > /tmp/msfinstall
 chmod 755 /tmp/msfinstall
 sudo /tmp/msfinstall
-sudo rm msfinstall
-
-sudo wget https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder > /tmp/hosting_folder
-chmod +x /tmp/hosting_folder
+sudo rm /tmp/msfinstall
+sudo wget -O /tmp/hosting_folder "https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder"
+sudo chmod +x /tmp/hosting_folder
 sudo mv /tmp/hosting_folder /bin/hostfolder
