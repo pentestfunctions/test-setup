@@ -62,7 +62,7 @@ When you boot the VM, on the login screen you will be prompted for enhanced sess
 
 Once logged into the Xorg session, run:
 ```bash
-cd test-setup
+cd ~/test-setup
 sudo chmod +x configure.sh
 ./configure.sh
 ```
