@@ -8,7 +8,7 @@ fi
 
 # Installed required tools from default repositories
 sudo apt-get install curl dos2unix outguess pdfcrack smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat sqlmap ruby-dev neofetch openvpn sublist3r -y
-sudo DEBIAN_FRONTEND=noninteractive sudo apt-get -y install wireshark > /dev/null
+sudo DEBIAN_FRONTEND=noninteractive sudo apt-get -y install wireshark
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 sudo gem install wpscan
 
