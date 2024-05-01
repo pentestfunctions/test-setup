@@ -61,8 +61,8 @@ When you boot the VM, on the login screen you will be prompted for enhanced sess
 
 Once logged into the Xorg session, run:
 ```bash
-wget https://github.com/pentestfunctions/test-setup/blob/main/configure.sh
-chmod +x configure.sh
+cd test-setup
+sudo chmod +x configure.sh
 ./configure.sh
 ```
 
