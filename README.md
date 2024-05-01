@@ -25,9 +25,7 @@ xrandr | awk '/ connected/ { print $1 }' | xargs -I{} xrandr --output {} --mode 
 
 ### 📦 Install Debian 12
 Install Debian 12 as you prefer. Remember to set up both root/sudo and user accounts. During the final step of the installation:
-- Configure XFCE
-- Disable Gnome and Debian Desktop
-- Leave "Standard System Utilities" enabled
+- Configure Gnome
 
 ## ⚙️ Configuration Steps
 
