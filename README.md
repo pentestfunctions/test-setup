@@ -48,7 +48,8 @@ chmod +x setup.sh
 ```
 
 ### 🔄 Reboot the System
-After running `setup.sh`, the system will reboot (you can turn it off at this point).
+After running `setup.sh`, the system will reboot (It is important to turn the machine OFF and close t he Virtual Machine Connection).
+- The reason for this is ensure the hyper-v modules can be recognized that we just installed.
 
 ### 🔌 Enable Enhanced Session Mode
 Run the following command in an administrator PowerShell on the Windows host (MAKE SURE YOU CHANGE DebianTest to your Hyper-V image name):
