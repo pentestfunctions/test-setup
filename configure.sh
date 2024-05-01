@@ -1,5 +1,27 @@
 #!/bin/bash
 
+function ensure_policy_file_exists() {
+    local file_path="/etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla"
+    local content="[Allow Colord all Users]\nIdentity=unix-user:*\nAction=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile\nResultAny=no\nResultInactive=no\nResultActive=yes"
+
+    # Check if file exists
+    if [ ! -f "$file_path" ]; then
+        echo "File does not exist, creating..."
+
+        # Create directory if it doesn't exist
+        mkdir -p "$(dirname "$file_path")"
+
+        # Create the file and add the contents
+        echo -e "$content" > "$file_path"
+
+        echo "File created successfully."
+    else
+        echo "File already exists."
+    fi
+}
+
+ensure_policy_file_exists
+
 # Check if the script is running as root
 if [ "$(id -u)" -eq 0 ]; then
   echo "This script should not be run as root. Please run without sudo."
@@ -203,6 +225,7 @@ fi
 sudo apt upgrade -y
 sudo apt install enum4linux crackmapexec getallurls dirsearch exploitdb getsploit feroxbuster kerberoast payloadsallthethings pdf-parser peirates pipal pspy radare2 responder smtp-user-enum snmpcheck snmpenum subfinder -y
 sudo apt install gpgv2 autoconf bison build-essential postgresql libaprutil1 libgmp3-dev libpcap-dev openssl libpq-dev libreadline6-dev libsqlite3-dev libssl-dev locate libsvn1 libtool libxml2 libxml2-dev libxslt-dev wget libyaml-dev ncurses-dev  postgresql-contrib xsel zlib1g zlib1g-dev curl -y
+sudo rm /usr/share/keyrings/metasploit-framework.gpg
 sudo curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > /tmp/msfinstall
 chmod 755 /tmp/msfinstall
 sudo /tmp/msfinstall
