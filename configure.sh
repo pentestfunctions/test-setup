@@ -7,14 +7,14 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 
 # Installed required tools from default repositories
-sudo apt-get install curl dos2unix outguess pdfcrack smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat sqlmap ruby-dev neofetch openvpn sublist3r -y
-sudo DEBIAN_FRONTEND=noninteractive sudo apt-get -y install wireshark
+echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
+sudo apt-get install curl dos2unix outguess pdfcrack wireshark smbclient samba smbmap socat ssdeep samdump2 scapy proxychains rdesktop proxychains4 steghide exiv2 foremost nbtscan ophcrack hashid libimage-exiftool-perl sucrack stegcracker fcrackzip net-tools binwalk zenity john 7zip nmap hashcat wfuzz hydra ffuf whatweb wafw00f cupp cewl crunch dirb gobuster htop lolcat sqlmap ruby-dev neofetch openvpn sublist3r -y
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 sudo gem install wpscan
 
 # Install Rust
-wget https://github.com/RustScan/RustScan/releases/download/2.2.2/rustscan_2.2.2_amd64.deb
-sudo dpkg -i rustscan_2.2.2_amd64.deb
+wget https://github.com/RustScan/RustScan/releases/download/2.2.2/rustscan_2.2.2_amd64.deb -O /tmp/rustscan_2.2.2_amd64.deb
+sudo dpkg -i /tmp/rustscan_2.2.2_amd64.deb
 
 # Install brave browser
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
