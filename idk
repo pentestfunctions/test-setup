@@ -1,0 +1,48 @@
+#!/bin/bash
+sudo apt update -y
+sudo apt upgrade -y
+
+grep -qxF 'deb http://http.kali.org/kali kali-rolling main non-free contrib' /etc/apt/sources.list || echo 'deb http://http.kali.org/kali kali-rolling main non-free contrib' | sudo tee -a /etc/apt/sources.list > /dev/null
+wget -qO- https://archive.kali.org/archive-key.asc | sudo tee /etc/apt/trusted.gpg.d/archive-key.asc
+sudo apt update
+
+# Define the content to add
+content=$(cat <<-END
+Package: *
+Pin: release a=kali-rolling
+Pin-Priority: 100
+END
+)
+
+# File where to add the content
+file="/etc/apt/preferences.d/kali.pref"
+
+# Check if the content exists in the file
+if ! grep -qxF "$content" "$file"; then
+    echo "$content" | sudo tee -a "$file" > /dev/null
+    echo "Content added to $file"
+else
+    echo "Content already exists in $file"
+fi
+
+sudo apt install kali-tweaks -y
+apt-get install --yet pipewire-module-xrdp
+/usr/lib/kali_tweaks/helpers/hyperv-enhanced-mode enable
+systemctl start xrdp
+systemctl enable xrdp
+
+# Path to the sudoers file
+sudoers_file="/etc/sudoers"
+
+for user in /home/*; do
+    username=$(basename "$user")
+
+    if ! grep -q "^$username " "$sudoers_file"; then
+        echo "$username ALL=(ALL) NOPASSWD: ALL" >> "$sudoers_file"
+    fi
+done
+
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+wget -O ~/Pictures/background.jpg "https://pbs.twimg.com/media/EYUgEFkWsAE-Tkg?format=jpg&name=4096x4096"
+gsettings set org.gnome.desktop.background picture-uri-dark "file:///home/$USER/Pictures/background.jpg"
+gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/Pictures/background.jpg"
