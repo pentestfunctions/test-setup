@@ -175,7 +175,7 @@ install_hosting_folder() {
     if [ ! -f /bin/hostfolder ]; then
         echo "hostfolder does not exist. Proceeding with installation..."
         sudo wget -O /tmp/hosting_folder https://raw.githubusercontent.com/pentestfunctions/escalation-folder/main/hosting_folder
-        chmod +x /tmp/hosting_folder
+        sudo chmod +x /tmp/hosting_folder
         sudo mv /tmp/hosting_folder /bin/hostfolder
         echo "hostfolder has been installed successfully."
     else
@@ -246,32 +246,14 @@ fix_python_environment() {
 function setup_dash_to_panel() {
     # Enable user extensions in GNOME
     gsettings set org.gnome.shell disable-user-extensions false
-
-    # Uninstall any existing instance of Dash to Panel
-    gnome-extensions uninstall dash-to-panel@jderose9.github.com
-
-    # Install necessary packages
-    sudo apt install gettext make -y
-
-    # Download and install the Dash to Panel extension
-    wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v51.shell-extension.zip
-    sudo unzip dash-to-paneljderose9.github.com.v51.shell-extension.zip -d ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/
-
-    # Restart GNOME Shell to apply changes
-    sudo killall -HUP gnome-shell
-
-    # Sleep for a short while to ensure the shell restarts properly
-    sleep 10 
-
-    # Notify user that GNOME has restarted
-    echo "GNOME has restarted, and now I'm running this command."
-
-    # Enable the Dash to Panel extension
     gnome-extensions enable "dash-to-panel@jderose9.github.com"
-
-    # Move Extension to the top
-    dconf write /org/gnome/shell/extensions/dash-to-panel/panel-positions "'{\"0\":\"TOP\"}'"
 }
+
+sudo apt purge --autoremove gnome-games -y
+sudo apt-get purge gnome-contacts -y
+sudo apt remove libreoffice-* -y
+sudo apt autoremove -y
+sudo apt autoclean -y
 
 install_tools
 install_rust_scan
