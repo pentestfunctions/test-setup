@@ -247,7 +247,7 @@ function enable_extensions() {
     # Enable user extensions in GNOME
     gsettings set org.gnome.shell disable-user-extensions false
     gnome-extensions enable "dash-to-panel@jderose9.github.com"
-    gnome-extensions enable "arcemnu@arcmenu.com"
+    gnome-extensions enable "arcmenu@arcmenu.com"
     dconf load /org/gnome/shell/extensions/dash-to-panel/ < dash_settings
     dconf load /org/gnome/shell/extensions/arcmenu/ < ArcMenu_Settings
 }
