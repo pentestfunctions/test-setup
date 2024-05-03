@@ -44,9 +44,10 @@ function configure_services() {
         fi
     done
 
-    sudo poweroff
 }
 
 # Call the functions
 setup_system
 configure_services
+sudo apt install gnome-shell-extension-dash-to-panel -y
+sudo poweroff
