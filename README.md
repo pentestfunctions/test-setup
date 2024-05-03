@@ -9,19 +9,18 @@ This guide will help you configure a Debian 12 virtual machine on a Windows host
 
 ## 🛠 Initial Setup
 
-### 🔧 Configure Screen Resolution
-Run this command if you struggle to see your screen while running the setup:
-
-```bash
-xrandr | awk '/ connected/ { print $1 }' | xargs -I{} xrandr --output {} --mode 1920x1080
-```
-
 ### 🖥 Create New VM
 1. Choose "New VM" (not quick create)
 2. Select "Generation 2"
 3. Go to Settings:
    - Disable Secure Boot
    - Enable guest services in the Integration Services.
+
+### 🔌 Enable Enhanced Session Mode
+Run the following command in an administrator PowerShell on the Windows host (MAKE SURE YOU CHANGE DebianTest to your Hyper-V image name):
+```bash
+Set-VM -VMName DebianTest -EnhancedSessionTransportType HvSocket
+```
 
 ### 📦 Install Debian 12
 Install Debian 12 as you prefer. Remember to set up both root/sudo and user accounts. During the final step of the installation:
@@ -46,17 +45,10 @@ chmod +x setup.sh
 ```
 
 ### 🔄 Reboot the System
-After running `setup.sh`, the system will reboot (It is important to turn the machine OFF and close t he Virtual Machine Connection).
-- The reason for this is ensure the hyper-v modules can be recognized that we just installed.
-
-### 🔌 Enable Enhanced Session Mode
-Run the following command in an administrator PowerShell on the Windows host (MAKE SURE YOU CHANGE DebianTest to your Hyper-V image name):
-```bash
-Set-VM -VMName DebianTest -EnhancedSessionTransportType HvSocket
-```
+After running `setup.sh`, the system will reboot. Simply click to reconnect.
 
 ### 💻 Configure RDP and Final Setup
-When you boot the VM, on the login screen you will be prompted for enhanced session mode (RDP) after a few seconds. You can adjust the resolution now if you wish.
+When you boot the VM, on the login screen you will be prompted for enhanced session mode (RDP) after a few seconds. You can adjust the resolution now if you wish. Also ensure that give it a few seconds before logging into Xorg
 
 Once logged into the Xorg session, run:
 ```bash
