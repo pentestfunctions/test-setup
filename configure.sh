@@ -243,10 +243,13 @@ fix_python_environment() {
     fi
 }
 
-function setup_dash_to_panel() {
+function enable_extensions() {
     # Enable user extensions in GNOME
     gsettings set org.gnome.shell disable-user-extensions false
     gnome-extensions enable "dash-to-panel@jderose9.github.com"
+    gnome-extensions enable "arcemnu@arcmenu.com"
+    dconf load /org/gnome/shell/extensions/dash-to-panel/ < dash_settings
+    dconf load /org/gnome/shell/extensions/arcmenu/ < ArcMenu_Settings
 }
 
 sudo apt purge --autoremove gnome-games -y
@@ -265,4 +268,4 @@ install_seclists
 install_metasploit
 install_hosting_folder
 sudo gem install wpscan
-setup_dash_to_panel
+enable_extensions
