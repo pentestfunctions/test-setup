@@ -50,4 +50,5 @@ function configure_services() {
 setup_system
 configure_services
 sudo apt install gnome-shell-extension-dash-to-panel -y
+sudo apt install gnome-shell-extension-arc-menu -y
 sudo poweroff
