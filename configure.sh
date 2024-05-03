@@ -6,6 +6,8 @@ if [ "$(id -u)" -eq 0 ]; then
   exit 1
 fi
 
+initial_dir=$(pwd)
+
 install_tools() {
     # Installed required tools from default repositories
     echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
@@ -245,6 +247,7 @@ fix_python_environment() {
 
 function enable_extensions() {
     # Enable user extensions in GNOME
+    cd "$initial_dir"
     gsettings set org.gnome.shell disable-user-extensions false
     gnome-extensions enable "dash-to-panel@jderose9.github.com"
     gnome-extensions enable "arcmenu@arcmenu.com"
